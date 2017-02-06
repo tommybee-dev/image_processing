@@ -1,0 +1,3 @@
+[submodule "jhlabs"]
+	path = jhlabs
+	url = https://github.com/axet/jhlabs
