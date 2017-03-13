@@ -15,7 +15,7 @@ public abstract class Filter {
 	private int edgeAction = CLAMP_EDGES;
 	
 	public abstract void filter( final PPMImage src, final PPMImage dst );
-	
+	public abstract void filter( final PPMImage src, final PPMImage dst, final int iterCnt );
 	/*
 	public int[] getRGB( final PPMImage image, int[] pixels ) {
 		int height = image.getHeight();

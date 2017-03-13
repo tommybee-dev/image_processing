@@ -136,4 +136,9 @@ public class SmartBlurFilter extends Filter {
 	public String toString() {
 		return "Blur/Smart Blur...";
 	}
+	
+	@Override
+	public void filter(PPMImage src, PPMImage dst, int iterCnt) {
+		
+	}
 }

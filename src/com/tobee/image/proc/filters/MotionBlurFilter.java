@@ -152,7 +152,7 @@ public class MotionBlurFilter extends AbstractBufferedImageOp {
 			}
 		}
 
-        setRGB( dst, 0, 0, width, height, inPixels );
+        setRGB( dst, 0, 0, width, height, outPixels );
         return dst;
     }
 

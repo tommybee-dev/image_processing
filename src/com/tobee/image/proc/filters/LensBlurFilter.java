@@ -61,10 +61,9 @@ public class LensBlurFilter extends AbstractBufferedImageOp {
 	public float getBloomThreshold() {
 		return bloomThreshold;
 	}
-
-
-    public BufferedImage filter( BufferedImage src, BufferedImage dst ) {
-        int width = src.getWidth();
+	
+	public BufferedImage filter( final BufferedImage src, BufferedImage dst, final int bufImageType ) {
+		int width = src.getWidth();
         int height = src.getHeight();
         int rows = 1, cols = 1;
         int log2rows = 0, log2cols = 0;
@@ -79,7 +78,7 @@ public class LensBlurFilter extends AbstractBufferedImageOp {
 		tileHeight = iradius < 32 ? Math.min(128, height+2*iradius) : Math.min(256, height+2*iradius);
 
         if ( dst == null )
-            dst = new BufferedImage( width, height, BufferedImage.TYPE_INT_ARGB );
+           dst = new BufferedImage( width, height, bufImageType );
 
         while (rows < tileHeight) {
             rows *= 2;
@@ -283,6 +282,11 @@ public class LensBlurFilter extends AbstractBufferedImageOp {
             }
         }
         return dst;
+		
+	}
+
+    public BufferedImage filter( final BufferedImage src, BufferedImage dst ) {
+    	return filter( src, dst, BufferedImage.TYPE_INT_ARGB );
     }
 
 	public String toString() {

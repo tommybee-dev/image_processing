@@ -156,7 +156,12 @@ public class MotionBlurFilter extends Filter {
 		dst.setRGB( outPixels );
 
     }
-
+	
+	@Override
+	public void filter(PPMImage src, PPMImage dst, int iterCnt) {
+		
+	}
+	
 	public String toString() {
 		return "Blur/Motion Blur...";
 	}

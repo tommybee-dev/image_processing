@@ -145,4 +145,9 @@ public class GaussianFilter extends Filter {
 	public String toString() {
 		return "Blur/Gaussian Blur...";
 	}
+
+	@Override
+	public void filter(PPMImage src, PPMImage dst, int iterCnt) {
+		
+	}
 }

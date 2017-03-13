@@ -20,17 +20,28 @@ public class PPMProcessing {
 	static class BoxBlurTest implements Blurring
 	{
 		private static final String BoxBlur_src_path = CAR_IMAGE_STRING;
-		private static final String BoxBlur_path = CONV_CAR_IMAGE_STRING.replace("{filter}", "box");
+		private static String BoxBlur_path;
 		//private static final String formatName = "jpg";
 		private PPMImage BoxBlur_src;
 		//private BufferedImage Convolv_dest;
 		private PPMImage BoxBlur_img;
 		private BoxBlurFilter convfilter;
+		private final int iteration;
 		
 		BoxBlurTest()
 		{
 			BoxBlur_src = PPMImage.read(BoxBlur_src_path);
 			BoxBlur_img = new PPMImage(BoxBlur_src.getHeight(), BoxBlur_src.getWidth());
+			iteration= -1;
+			BoxBlur_path = CONV_CAR_IMAGE_STRING.replace("{filter}", "box");
+		}
+		
+		BoxBlurTest(final int iter)
+		{
+			BoxBlur_src = PPMImage.read(BoxBlur_src_path);
+			BoxBlur_img = new PPMImage(BoxBlur_src.getHeight(), BoxBlur_src.getWidth());
+			iteration= iter;
+			BoxBlur_path = CONV_CAR_IMAGE_STRING.replace("{filter}", "box_"+iter);
 		}
 		
 		@Override
@@ -40,9 +51,14 @@ public class PPMProcessing {
 			//convfilter.setVRadius(30);
 			convfilter.setRadius(5);
 			
-		    convfilter.filter(BoxBlur_src, BoxBlur_img);
+			if(iteration > 0)
+				convfilter.filter(BoxBlur_src, BoxBlur_img, iteration);
+			else
+				convfilter.filter(BoxBlur_src, BoxBlur_img);
 		}
-
+		
+		
+		
 		@Override
 		public boolean makeImageBlurred() {
 			boolean success = false;
@@ -88,7 +104,7 @@ public class PPMProcessing {
 			
 		   convfilter.filter(Gaussian_src, Gaussian_img);
 		}
-
+		
 		@Override
 		public boolean makeImageBlurred() {
 			boolean success = false;
@@ -136,7 +152,8 @@ public class PPMProcessing {
 			convfilter.setZoom(0.3f);
 		    convfilter.filter(Motion_src, Motion_img);
 		}
-
+		
+		
 		@Override
 		public boolean makeImageBlurred() {
 			boolean success = false;
@@ -178,7 +195,7 @@ public class PPMProcessing {
 			convfilter.setRadius(0.6f);
 		    convfilter.filter(Glow_src, Glow_img);
 		}
-
+		
 		@Override
 		public boolean makeImageBlurred() {
 			boolean success = false;
@@ -223,7 +240,8 @@ public class PPMProcessing {
 			convfilter.setThreshold(20);
 		    convfilter.filter(Smart_src, Smart_img);
 		}
-
+		
+		
 		@Override
 		public boolean makeImageBlurred() {
 			boolean success = false;
@@ -303,13 +321,14 @@ public class PPMProcessing {
 	//private static final int SHADOW = 13;
 	//private static final int RAYS = 14;
 	
-	private static final int SELECTED_TEST = MOTION_BLUR;
+	private static final int SELECTED_TEST = BOX_BLUR;
 	
 	public static void main(String[] args)
 	{
 		
 		Blurring blurring = null;
 
+		
 		switch(SELECTED_TEST)
 		{
 		//case NORMAL_BLUR:
@@ -322,7 +341,9 @@ public class PPMProcessing {
 			//blurring = new ConvolvTest();
 			//break;
 		case BOX_BLUR:
-			blurring = new BoxBlurTest();
+			int iteration = 5;
+			blurring = new BoxBlurTest(iteration);
+			//blurring = new BoxBlurTest();
 			break;
 		case GAUSSIAN_BLUR:
 			blurring = new GaussianBlurTest();

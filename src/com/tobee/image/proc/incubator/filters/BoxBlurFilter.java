@@ -27,6 +27,25 @@ public class BoxBlurFilter extends Filter {
         dst.setRGB( inPixels );
         
     }
+    
+    public void filter( final PPMImage src, final PPMImage dst, final int iterCnt ) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+        
+
+        int[] inPixels = new int[width*height];
+        int[] outPixels = new int[width*height];
+        
+        src.getRGB( inPixels );
+        
+        for (int i = 0; i < iterCnt; i++ ) {
+            blur( inPixels, outPixels, width, height, hRadius );
+            blur( outPixels, inPixels, height, width, vRadius );
+        }
+        
+        dst.setRGB( inPixels );
+        
+    }
 
     public static void blur( int[] in, int[] out, int width, int height, int radius ) {
         int widthMinus1 = width-1;

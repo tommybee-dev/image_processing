@@ -206,9 +206,10 @@ public class BlurTest {
 		@Override
 		public void doBlur() {
 			convfilter = new BoxBlurFilter();
-			//convfilter.setHRadius(5);
-			//convfilter.setVRadius(30);
-			convfilter.setRadius(9);
+			convfilter.setHRadius(0);
+			convfilter.setVRadius(10);
+			//convfilter.setIterations(10);
+			//convfilter.setRadius(9);
 			
 		    BoxBlur_img = convfilter.filter(BoxBlur_src, null);
 		}
@@ -255,9 +256,8 @@ public class BlurTest {
 		
 		@Override
 		public void doBlur() {
-			convfilter = new GaussianFilter(9);
-			//convfilter.setHRadius(5);
-			//convfilter.setVRadius(30);
+			convfilter = new GaussianFilter(20);
+			
 			//convfilter.setRadius(9);
 			
 		    Convolv_img = convfilter.filter(Convolv_src, null);
@@ -303,6 +303,11 @@ public class BlurTest {
 		@Override
 		public void doBlur() {
 			convfilter = new MotionBlurFilter();
+			//convfilter.setAngle(20.0f);
+			//convfilter.setDistance(30.0f);
+			//convfilter.setRotation(0.45f);
+			//convfilter.setWrapEdges(true);
+			convfilter.setZoom(0.45f);
 			
 		    Convolv_img = convfilter.filter(Convolv_src, null);
 		}
@@ -347,7 +352,11 @@ public class BlurTest {
 		@Override
 		public void doBlur() {
 			convfilter = new MotionBlurOp();
-			
+			//convfilter.setAngle(20.0f);
+			//convfilter.setDistance(30.0f);
+			convfilter.setRotation(1.45f);
+			//convfilter.setWrapEdges(true);
+			//convfilter.setZoom(0.45f);
 		    Convolv_img = convfilter.filter(Convolv_src, null);
 		}
 
@@ -372,8 +381,8 @@ public class BlurTest {
 	
 	static class LensBlurFilterTest implements Blurring
 	{
-		private static final String Convolv_src_path = "resources/flower_src.jpg";
-		private static final String Convolv_path = "resources/flower_lens.jpg";
+		private static final String Convolv_src_path = "resources/christmas_src.jpg";
+		private static final String Convolv_path = "resources/christmas_lens.jpg";
 		private static final String formatName = "jpg";
 		private BufferedImage Convolv_src;
 		private BufferedImage Convolv_img;
@@ -391,8 +400,12 @@ public class BlurTest {
 		@Override
 		public void doBlur() {
 			convfilter = new LensBlurFilter();
+			//convfilter.setBloom(0.9f);
+			//convfilter.setBloomThreshold(10.5f);
+			//convfilter.setRadius(5.5f);
+			//convfilter.setSides(10);
 			
-		    Convolv_img = convfilter.filter(Convolv_src, null);
+		    Convolv_img = convfilter.filter(Convolv_src, null, BufferedImage.TYPE_INT_ARGB);
 		}
 
 		@Override
@@ -693,7 +706,7 @@ public class BlurTest {
 	private static final int SHADOW = 13;
 	private static final int RAYS = 14;
 	
-	private static final int SELECTED_TEST = BOX_BLUR;
+	private static final int SELECTED_TEST = LENS_BLUR;
 	
 	public static void main(String[] args)
 	{
